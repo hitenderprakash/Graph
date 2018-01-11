@@ -1,9 +1,17 @@
-all:
-	@g++ directedGraph.cpp -o directedGraph.out -std=c++11
+CC=g++ -std=c++11
+OPTS=
+INCS=
+LIBS=
 
-run:
-	@g++ directedGraph.cpp -o directedGraph.out -std=c++11
-	@./directedGraph.out
+%.o: %.cpp
+	$(CC) $(OPTS) $(INCS) -c $<
+
+go: main.o directedGraph.o
+	$(CC) $(OPTS) $(INCS) -o $@ $^  $(LIBS)
+
+run: go
+	@./go
 
 clean:
-	rm *.out
+	rm -f go *.o 
+
