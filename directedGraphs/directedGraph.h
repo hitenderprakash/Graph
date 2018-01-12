@@ -23,9 +23,16 @@ namespace std {
 
 class directedGraph{	
 	private:
-	unordered_map<graphNode,unordered_set<graphNode>> graph;
+	unordered_map<graphNode,unordered_set<graphNode>> graph; //data structure to store graph
+	
+	//private methods (called by other public functions 
+	
+	//helper dfs function
 	bool detectCycle_dfs(graphNode cur,unordered_set<graphNode> &explored,unordered_map<graphNode,int> onPath,unordered_set<graphNode> &loop,int depth);
+	
+	//return true if cycle exist and store the nodes involved in cycle into set loop
 	bool getNodesSetInCycle(unordered_set<graphNode> &loop);
+	//helper function for topological sort
 	void recursiveTSHelper(unordered_map<graphNode,unordered_set<graphNode>> ::iterator it,unordered_set<graphNode> &visited,stack<graphNode> &resultStack);
 	
 	public:
@@ -38,6 +45,10 @@ class directedGraph{
 	void addNode(graphNode node);
 	void addNode(string nodename);
 	
+	//delete a node 
+	void deleteNode(graphNode node);
+	void deleteNode(string nodeName);
+	
 	//display graph nodes
 	void displayGraphNodes();
 	
@@ -47,6 +58,10 @@ class directedGraph{
 	//add edge 
 	int addEdge(graphNode sourceNode, graphNode destNode);	
 	int addEdge(string sourceNodeName, string destNodeName);
+	
+	//delete edge 
+	void deleteEdge(graphNode sourceNode, graphNode destNode);	
+	void deleteEdge(string sourceNodeName, string destNodeName);
 	
 	//check if node exists
 	bool edgeExists(graphNode sourceNode, graphNode destNode);
@@ -70,7 +85,6 @@ class directedGraph{
 	
 	//generate graph from given directed edge list
 	void generateDirectedGraphWithEdges(vector<pair<string,string>>& edges);
-	
 };
 
 

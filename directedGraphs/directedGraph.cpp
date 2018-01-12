@@ -35,6 +35,27 @@ void directedGraph::addNode(graphNode node){
 void directedGraph::addNode(string nodename){
 	addNode(graphNode(nodename));
 }
+//delete node
+void directedGraph::deleteNode(graphNode node){
+	if(!nodeExists(node)){
+		return;
+	}
+	else{
+		auto it=graph.find(node);
+		graph.erase(it);	
+		//also delete it from other's neighbor list
+		for(auto it=graph.begin();it!=graph.end();it++){
+			auto temp=it->second.find(node);
+			if(temp!=it->second.end()){it->second.erase(node);}
+		}
+	}	
+}
+
+void directedGraph::deleteNode(string nodename){
+	deleteNode(graphNode(nodename));
+}
+
+
 
 //display graph nodes
 void directedGraph::displayGraphNodes(){
@@ -73,6 +94,19 @@ int directedGraph::addEdge(graphNode sourceNode, graphNode destNode){
 int directedGraph::addEdge(string sourceNodeName, string destNodeName){
 	return addEdge(graphNode(sourceNodeName), graphNode(destNodeName));
 }
+
+//delete edge
+void directedGraph::deleteEdge(graphNode sourceNode, graphNode destNode){
+	if(edgeExists(sourceNode, destNode)){
+		auto it=graph.find(sourceNode);
+		it->second.erase(destNode);
+	}
+}
+
+void directedGraph::deleteEdge(string sourceNodeName, string destNodeName){
+	deleteEdge(graphNode(sourceNodeName),graphNode(destNodeName));
+}
+
 //check if edge exists
 bool directedGraph::edgeExists(graphNode sourceNode, graphNode destNode){
 	if(nodeExists(sourceNode)&& nodeExists(destNode)){
@@ -164,13 +198,7 @@ void directedGraph::removeAllCycles(){
 		if(loop.size()==0){break;}	
 		else{
 			for(auto i=loop.begin();i!=loop.end();i++){
-				graph.erase(graph.find(*i));
-			}
-			for(auto i=loop.begin();i!=loop.end();i++){
-				for(auto j=graph.begin();j!=graph.end();j++){
-					auto temp=j->second.find(*i);
-					if(temp!=j->second.end()){j->second.erase(temp);}
-				}
+				deleteNode(*i);
 			}
 		}	
 	}

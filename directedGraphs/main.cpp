@@ -36,7 +36,7 @@ int main(){
 	//test creation/modification of graph by edge list
 	cout<<"\nTest: Adding more nodes and edges from edge list";
 	cout<<"\nAdding few more edges and nodes";
-	vector<pair<string,string>> citylinks={ {"shimla","delhi"},{"newyork", "indiana"},{"indiana","chicago"},{"chicago","ohio"}};
+	vector<pair<string,string>> citylinks={ {"shimla","delhi"},{"newyork", "indiana"},{"indiana","chicago"},{"chicago","newyork"}};
 	city.generateDirectedGraphWithEdges(citylinks);
 	city.displayGraph();
 	//test cycles
@@ -45,13 +45,17 @@ int main(){
 	if(cycle){
 		cout<<"\nThe following nodes are in a loop: ";
 		vector<graphNode> res=city.getNodesInCycle();
-		for(int i =res.size();i<res.size();i++){
+		for(int i =0;i<res.size();i++){
 			cout<<" "<<res[i];
 		}
 	}
 	else{
 		cout<<"\nGaph has no loop";
 	}
+	
+	cout<<"\nTest: remove cycle";
+	city.removeAllCycles();
+	city.displayGraph();
 	
 	cout<<"\nTest: topological sort\n";
 	vector<graphNode> res=city.topologicalSort();
@@ -66,9 +70,13 @@ int main(){
 			cout<<lres[i][j]<<" ";
 		}
 	}
-	//test cycle removal
 	
-	//city.removeAllCycles();
+	//cout<<"\nTest: delete node";
+	//city.deleteNode("indiana");
+	
+	//cout<<"\nTest: delete edge";
+	//city.deleteEdge("indiana","chicago");
+	//city.deleteEdge("delhi","chicago");
 	
 	//test displaying graph structure
 	//city.displayGraph();
