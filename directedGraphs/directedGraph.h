@@ -1,9 +1,14 @@
+/* Interface for directed graph
+ * Hitender Prakash
+ */
+ 
 #ifndef _DIRECTED_GRAPH
 #define _DIRECTED_GRAPH
 
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
+#include <utility>
 #include "graph.h"
 using namespace std;
 
@@ -19,13 +24,20 @@ namespace std {
 class directedGraph{	
 	private:
 	unordered_map<graphNode,unordered_set<graphNode>> graph;
+	bool detectCycle_dfs(graphNode cur,unordered_set<graphNode> &explored,unordered_map<graphNode,int> onPath,unordered_set<graphNode> &loop,int depth);
+	bool getNodesSetInCycle(unordered_set<graphNode> &loop);
+	void recursiveTSHelper(unordered_map<graphNode,unordered_set<graphNode>> ::iterator it,unordered_set<graphNode> &visited,stack<graphNode> &resultStack);
+	
 	public:
-	//add single node
-	void addNode(graphNode node);
-	void addNode(string nodename);
+	
 	//check if node exists
 	bool nodeExists(graphNode node);
 	bool nodeExists(string nodename);
+	
+	//add single node
+	void addNode(graphNode node);
+	void addNode(string nodename);
+	
 	//display graph nodes
 	void displayGraphNodes();
 	
@@ -43,5 +55,23 @@ class directedGraph{
 	//display graph structure
 	void displayGraph();
 	
+	//cycle detection in graph
+	bool hasCycle();
+	vector<graphNode> getNodesInCycle();
+	
+	//remove all cycles
+	void removeAllCycles();
+	
+	//topological sort
+	vector<graphNode> topologicalSort();
+	
+	//level order traversal
+	vector<vector<graphNode>> levelOrder(vector<graphNode> &vec);
+	
+	//generate graph from given directed edge list
+	void generateDirectedGraphWithEdges(vector<pair<string,string>>& edges);
+	
 };
+
+
 #endif
