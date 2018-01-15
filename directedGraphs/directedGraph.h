@@ -83,6 +83,10 @@ class directedGraph{
 	//level order traversal
 	vector<vector<graphNode>> levelOrder(vector<graphNode> &vec);
 	
+	//BFS on a given node
+	vector<vector<graphNode>> BFS(graphNode node);
+	vector<vector<graphNode>> BFS(string nodename);
+	
 	//generate graph from given directed edge list
 	void generateDirectedGraphWithEdges(vector<pair<string,string>>& edges);
 };

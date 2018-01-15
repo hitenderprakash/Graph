@@ -37,7 +37,20 @@ int main(){
 	cout<<"\nTest: Adding more nodes and edges from edge list";
 	cout<<"\nAdding few more edges and nodes";
 	vector<pair<string,string>> citylinks={ {"shimla","delhi"},{"newyork", "indiana"},{"indiana","chicago"},{"chicago","newyork"}};
+	
 	city.generateDirectedGraphWithEdges(citylinks);
+	
+	//test BFS
+	/*vector<pair<string,string>> citylinks={ {"shimla","delhi"},{"newyork", "indiana"},{"indiana","chicago"},{"chicago","ohio"},{"chicago","iowa"}};
+	city.generateDirectedGraphWithEdges(citylinks);
+	vector<vector<graphNode>> bfs= city.BFS("newyork");
+	for(int i=0;i<bfs.size();i++){
+		cout<<"\n\nBFS Level:"<<i<<"\n";
+		for(int j=0;j<bfs[i].size();j++){
+			cout<<bfs[i][j]<<" ";
+		}
+	}*/
+	
 	city.displayGraph();
 	//test cycles
 	cout<<"\nTest: if graph has cycle";

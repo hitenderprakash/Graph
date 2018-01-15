@@ -8,6 +8,7 @@
 #include <unordered_set>
 #include <vector>
 #include <stack>
+#include <queue>
 #include <utility>
 #include "directedGraph.h"
 using namespace std;
@@ -257,6 +258,41 @@ vector<vector<graphNode>> directedGraph::levelOrder(vector<graphNode> &vec){
 		resultvec[i->second-1].push_back(i->first);
 	}	
 	return 	resultvec;
+}
+
+//BFS on a given node
+vector<vector<graphNode>> directedGraph::BFS(graphNode node){
+	vector<vector<graphNode>> BFSResult;
+	if(graph.find(node)==graph.end()){
+		return BFSResult;
+	}
+	queue<graphNode> q;
+	unordered_set<graphNode> discovered;
+	q.push(node);
+
+	while(!q.empty()){
+		int qsz=q.size();
+		vector<graphNode> level;
+		for(int i=0;i<qsz;i++){
+			graphNode cur=q.front();
+			q.pop();
+			level.push_back(cur);
+			
+			auto it=graph.find(cur);
+			for(auto i=it->second.begin();i!=it->second.end();i++){
+				if(discovered.find(*i)==discovered.end()){
+					q.push(*i);
+					discovered.insert(*i);
+				}
+			}	
+		}
+		BFSResult.push_back(level);	
+	}
+	return BFSResult;
+}
+
+vector<vector<graphNode>> directedGraph::BFS(string nodename){
+	return BFS(graphNode(nodename));
 }
 
 //method to generate the directed graph from given vector of edges
