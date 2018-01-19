@@ -295,6 +295,33 @@ vector<vector<graphNode>> directedGraph::BFS(string nodename){
 	return BFS(graphNode(nodename));
 }
 
+//BFS on all nodes, also returns number of connected components 
+//(in directed graph the connected components will only be correct if BFS starts in 
+vector<vector<graphNode>> directedGraph::BFS_All(){
+	vector<graphNode> sortedList =topologicalSort();
+	vector<vector<graphNode>> result;
+	unordered_set<graphNode> explored;
+	for(int i=0;i<sortedList.size();i++){
+		if(explored.find(sortedList[i])==explored.end()){
+			vector<vector<graphNode>> connectedNodes=BFS(sortedList[i]);
+			vector<graphNode> local;
+			for(int j=0;j<connectedNodes.size();j++){
+				for(int k=0;k<connectedNodes[j].size();k++){
+					local.push_back(connectedNodes[j][k]);
+					explored.insert(connectedNodes[j][k]);
+				}
+			}
+			if(local.size()>0){result.push_back(local);}
+		}
+	}
+	return result;
+}
+//returns total number of connected components in graph
+int directedGraph::numConnectedComponents(){
+	vector<vector<graphNode>> connectedComponents=BFS_All();
+	return connectedComponents.size();
+}
+
 //method to generate the directed graph from given vector of edges
 //input is a vector of pairs like [ [a,b],[c,d]] , pair [a,b] represent edge a->b
 //also require a reference of directedGraph to be generated (which initially is empty)

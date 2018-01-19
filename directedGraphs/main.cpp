@@ -16,6 +16,7 @@ using namespace std;
 int main(){
 	cout<<"\n================\n";
 	directedGraph city;
+
 	cout<<"\nTest: Adding isolated edges======";
 	city.addNode("shimla");
 	city.addNode("delhi");
@@ -50,7 +51,17 @@ int main(){
 			cout<<bfs[i][j]<<" ";
 		}
 	}*/
-	
+	/*test BFS_ALL and connected components
+	vector<pair<string,string>> citylinks={ {"shimla","delhi"},{"newyork", "indiana"},{"indiana","chicago"},{"chicago","ohio"},{"chicago","iowa"}};
+	city.generateDirectedGraphWithEdges(citylinks);
+	vector<vector<graphNode>> temp=city.BFS_All();
+	for(int i=0;i<temp.size();i++){
+		cout<<"\nConnected Comp: ";
+		for(int j=0;j<temp[i].size();j++){
+			cout<<temp[i][j]<<"  ";
+		}
+	}*/
+
 	city.displayGraph();
 	//test cycles
 	cout<<"\nTest: if graph has cycle";
@@ -93,6 +104,7 @@ int main(){
 	
 	//test displaying graph structure
 	//city.displayGraph();
-	cout<<"\n================\n";
+	cout<<"\n================\n"; 
+
 	return 0;	
 }

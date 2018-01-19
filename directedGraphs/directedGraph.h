@@ -87,6 +87,13 @@ class directedGraph{
 	vector<vector<graphNode>> BFS(graphNode node);
 	vector<vector<graphNode>> BFS(string nodename);
 	
+	//BFS on all nodes, also returns number of connected components 
+	//(in directed graph the connected components will only be correct if BFS starts in 
+	vector<vector<graphNode>> BFS_All();
+	
+	//returns total number of connected components in graph
+	int numConnectedComponents();
+	
 	//generate graph from given directed edge list
 	void generateDirectedGraphWithEdges(vector<pair<string,string>>& edges);
 };
